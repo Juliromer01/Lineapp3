@@ -15,7 +15,7 @@
       color: #fff;
     }
 
-    /* ── MAIN LAYOUT — full viewport ── */
+    /* ── LAYOUT ── */
     .main {
       display: grid;
       grid-template-columns: 400px 1fr;
@@ -24,17 +24,47 @@
 
     /* ── LEFT PANEL ── */
     .left-panel {
-      background: linear-gradient(160deg, #2d1a6b 0%, #1a0e3e 50%, #000 100%);
-      padding: 56px 44px;
+      background: linear-gradient(160deg, #2d1a6b 0%, #1a0e3e 55%, #000 100%);
+      padding: 52px 44px;
       display: flex;
       flex-direction: column;
-      gap: 28px;
-      border-right: 1px solid rgba(255,255,255,0.06);
+      gap: 26px;
       overflow-y: auto;
+      position: relative;
+    }
+
+    /* Language toggle */
+    .lang-toggle {
+      display: flex;
+      align-self: flex-start;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 999px;
+      padding: 4px;
+      gap: 2px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: #7455FD;
+      color: #fff;
+    }
+    .lang-btn:hover:not(.active) {
+      color: #fff;
     }
 
     .left-panel h1 {
-      font-size: 44px;
+      font-size: 46px;
       font-weight: 800;
       line-height: 1.1;
       color: #fff;
@@ -50,9 +80,7 @@
       padding: 14px 20px;
       transition: border-color 0.2s;
     }
-    .search-box:focus-within {
-      border-color: rgba(116,85,253,0.6);
-    }
+    .search-box:focus-within { border-color: rgba(116,85,253,0.7); }
     .search-box svg { flex-shrink: 0; color: rgba(255,255,255,0.4); }
     .search-box input {
       background: transparent;
@@ -67,7 +95,7 @@
 
     .popular-label {
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 700;
       color: rgba(255,255,255,0.4);
       text-transform: uppercase;
       letter-spacing: 0.1em;
@@ -91,171 +119,213 @@
     }
     .tag:hover {
       background: rgba(116,85,253,0.15);
-      border-color: rgba(116,85,253,0.4);
+      border-color: rgba(116,85,253,0.45);
       color: #fff;
     }
 
-    /* ── RIGHT PANEL ── */
+    /* ── RIGHT PANEL — full grid like Soundtrack ── */
     .right-panel {
-      padding: 40px 44px;
-      background: #000;
-      display: flex;
-      flex-direction: column;
-      overflow-y: auto;
-    }
-
-    .categories-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: repeat(3, 1fr);
-      gap: 14px;
-      flex: 1;
+      height: 100vh;
+      border-left: 1px solid rgba(255,255,255,0.08);
     }
 
     .category-card {
-      background: #0a0a0a;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      gap: 14px;
+      gap: 16px;
       cursor: pointer;
       text-decoration: none;
       color: #fff;
-      transition: all 0.25s ease;
+      border-right: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s;
+      padding: 24px;
     }
+    /* Remove double borders on last column and last row */
+    .category-card:nth-child(3n) { border-right: none; }
+    .category-card:nth-child(n+7) { border-bottom: none; }
+
     .category-card:hover {
-      background: #0f0f0f;
-      border-color: rgba(116,85,253,0.5);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(116,85,253,0.12);
-    }
-    .category-card svg {
-      width: 38px;
-      height: 38px;
-      color: rgba(255,255,255,0.7);
-      transition: color 0.2s;
+      background: rgba(116,85,253,0.08);
     }
     .category-card:hover svg { color: #7455FD; }
+    .category-card:hover span { color: #fff; }
+
+    .category-card svg {
+      width: 44px;
+      height: 44px;
+      color: rgba(255,255,255,0.65);
+      transition: color 0.25s;
+    }
     .category-card span {
       font-size: 15px;
-      font-weight: 600;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      text-align: center;
       line-height: 1.3;
-      color: #fff;
+      transition: color 0.25s;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .main { grid-template-columns: 1fr; height: auto; }
+      .right-panel { grid-template-rows: auto; height: auto; }
+      .category-card { min-height: 140px; }
       .left-panel { padding: 40px 24px; }
-      .right-panel { padding: 32px 24px; }
-      .categories-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
     }
     @media (max-width: 480px) {
-      .categories-grid { grid-template-columns: 1fr; }
+      .right-panel { grid-template-columns: repeat(2, 1fr); }
+      .category-card:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.08); }
+      .category-card:nth-child(2n) { border-right: none; }
       .left-panel h1 { font-size: 34px; }
     }
   </style>
 </head>
 <body>
 
-  <div class="main">
+<div class="main">
 
-    <!-- LEFT -->
-    <aside class="left-panel">
-      <h1>¿Cómo podemos ayudarte?</h1>
+  <!-- LEFT -->
+  <aside class="left-panel">
 
-      <div class="search-box">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <circle cx="7.5" cy="7.5" r="5.5"/>
-          <path d="M16 16l-3.5-3.5"/>
-        </svg>
-        <input type="text" placeholder="Buscar..." autocomplete="on"/>
-      </div>
+    <!-- Language switcher -->
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
 
-      <p class="popular-label">Temas frecuentes</p>
+    <h1 id="title">¿Cómo podemos ayudarte?</h1>
 
-      <div class="popular-tags">
-        <a href="#" class="tag">¿Cómo registrarme en Brandtrack?</a>
-        <a href="#" class="tag">¿Cómo elegir una playlist según el tipo de negocio?</a>
-        <a href="#" class="tag">¿Qué es un schedule?</a>
-      </div>
-    </aside>
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <circle cx="7.5" cy="7.5" r="5.5"/>
+        <path d="M16 16l-3.5-3.5"/>
+      </svg>
+      <input type="text" id="search-input" placeholder="Buscar..." autocomplete="on"/>
+    </div>
 
-    <!-- RIGHT -->
-    <main class="right-panel">
-      <div class="categories-grid">
+    <p class="popular-label" id="popular-label">Temas frecuentes</p>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-          </svg>
-          <span>Primeros pasos</span>
-        </a>
+    <div class="popular-tags" id="popular-tags">
+      <a href="#" class="tag" id="tag1">¿Cómo registrarme en Brandtrack?</a>
+      <a href="#" class="tag" id="tag2">¿Cómo elegir una playlist según el tipo de negocio?</a>
+      <a href="#" class="tag" id="tag3">¿Qué es un schedule?</a>
+    </div>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-          </svg>
-          <span>Manejo de cuenta</span>
-        </a>
+  </aside>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
-          </svg>
-          <span>App</span>
-        </a>
+  <!-- RIGHT — categories full grid -->
+  <main class="right-panel">
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-          </svg>
-          <span>Brandtrack Box</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+      </svg>
+      <span id="cat1">Primeros pasos</span>
+    </a>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
-          </svg>
-          <span>Música</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span id="cat2">Manejo de cuenta</span>
+    </a>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
-          <span>Anuncios</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/>
+      </svg>
+      <span id="cat3">App</span>
+    </a>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 2l-4 5-4-5"/>
-          </svg>
-          <span>Digital Signage</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+      </svg>
+      <span id="cat4">Brandtrack Box</span>
+    </a>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
-          </svg>
-          <span>Requerimientos técnicos</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+      </svg>
+      <span id="cat5">Música</span>
+    </a>
 
-        <a href="#" class="category-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/>
-          </svg>
-          <span>Método de pago y planes</span>
-        </a>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 11l19-9-9 19-2-8-8-2z"/>
+      </svg>
+      <span id="cat6">Anuncios</span>
+    </a>
 
-      </div>
-    </main>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 2l-4 5-4-5"/>
+      </svg>
+      <span id="cat7">Digital Signage</span>
+    </a>
 
-  </div>
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/>
+      </svg>
+      <span id="cat8">Requerimientos técnicos</span>
+    </a>
+
+    <a href="#" class="category-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/>
+      </svg>
+      <span id="cat9">Método de pago y planes</span>
+    </a>
+
+  </main>
+</div>
+
+<script>
+  const translations = {
+    es: {
+      title: '¿Cómo podemos ayudarte?',
+      search: 'Buscar...',
+      popular: 'Temas frecuentes',
+      tag1: '¿Cómo registrarme en Brandtrack?',
+      tag2: '¿Cómo elegir una playlist según el tipo de negocio?',
+      tag3: '¿Qué es un schedule?',
+      cat1: 'Primeros pasos', cat2: 'Manejo de cuenta', cat3: 'App',
+      cat4: 'Brandtrack Box', cat5: 'Música', cat6: 'Anuncios',
+      cat7: 'Digital Signage', cat8: 'Requerimientos técnicos', cat9: 'Método de pago y planes'
+    },
+    en: {
+      title: 'How can we help you?',
+      search: 'Search...',
+      popular: 'Popular topics',
+      tag1: 'How do I sign up for Brandtrack?',
+      tag2: 'How do I choose a playlist for my business?',
+      tag3: 'What is a schedule?',
+      cat1: 'Getting started', cat2: 'Manage account', cat3: 'App',
+      cat4: 'Brandtrack Box', cat5: 'Music', cat6: 'Announcements',
+      cat7: 'Digital Signage', cat8: 'Technical requirements', cat9: 'Payment & plans'
+    }
+  };
+
+  function setLang(lang) {
+    const t = translations[lang];
+    document.getElementById('title').textContent = t.title;
+    document.getElementById('search-input').placeholder = t.search;
+    document.getElementById('popular-label').textContent = t.popular;
+    ['tag1','tag2','tag3','cat1','cat2','cat3','cat4','cat5','cat6','cat7','cat8','cat9']
+      .forEach(id => document.getElementById(id).textContent = t[id]);
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+  }
+</script>
 
 </body>
 </html>
