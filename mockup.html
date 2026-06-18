@@ -30,8 +30,11 @@
       flex-direction: column;
       gap: 26px;
       overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: none;
       position: relative;
     }
+    .left-panel::-webkit-scrollbar { display: none; }
 
     /* Language toggle */
     .lang-toggle {
@@ -130,6 +133,7 @@
       grid-template-rows: repeat(3, 1fr);
       height: 100vh;
       border-left: 1px solid rgba(255,255,255,0.08);
+      overflow-y: auto;
     }
 
     .category-card {
