@@ -1,0 +1,104 @@
+<h1 class="visibility-hidden">{{ help_center.name }}</h1>
+
+<div class="container bt-home">
+  <div class="bt-home-layout">
+
+    <!-- LEFT -->
+    <aside class="bt-home-left" aria-label="Help Center search">
+      <h2 class="bt-home-title">
+  {{#is help_center.locale 'es'}}
+    ¿Cómo podemos ayudarte?
+  {{else}}
+    How can we help?
+  {{/is}}
+</h2>
+
+      <div class="bt-home-search">
+    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" focusable="false" viewBox="0 0 12 12" class="search-icon" aria-hidden="true">
+      <circle cx="4.5" cy="4.5" r="4" fill="none" stroke="currentColor"/>
+      <path stroke="currentColor" stroke-linecap="round" d="M11 11L7.5 7.5"/>
+    </svg>
+    {{search submit=false instant=settings.instant_search class='search search-full'}}
+    <!-- CUSTOM DROPDOWN -->
+    <div id="bt-search-dropdown" style="display:none; position:absolute; top:100%; left:0; right:0; z-index:9999; margin-top:8px; background:#0b0b0f; border:1px solid rgba(255,255,255,0.14); border-radius:14px; overflow:hidden; font-family:'DM Sans',sans-serif; box-shadow:0 18px 50px rgba(0,0,0,0.55);">
+      <div style="padding:14px 18px 8px; color:rgba(255,255,255,0.45); font-size:13px; font-weight:500;">Principales resultados de búsqueda</div>
+      <ul id="bt-search-results" style="list-style:none; margin:0; padding:0;"></ul>
+    </div>
+</div>
+
+      <!-- POPULAR TOPICS (NOW UNDER SEARCH) -->
+      <div class="bt-faq-topics">
+        <h3>{{#is help_center.locale 'es'}}Temas frecuentes:{{else}}Frequent topics:{{/is}}</h3>
+        <div class="bt-faq-tags">
+          {{#is help_center.locale 'es'}}
+            <a href="https://new-help.brandtrack.ai/hc/es/articles/38750270507287" class="bt-tag">
+              ¿Cómo registrarme en Brandtrack?
+            </a>
+            <a href="https://new-help.brandtrack.ai/hc/es/articles/38755063963543" class="bt-tag">
+              ¿Cómo elegir una playlist según el tipo de negocio?
+            </a>
+            <a href="https://new-help.brandtrack.ai/hc/es/articles/38756550296983" class="bt-tag">
+              ¿Qué es un schedule?
+            </a>
+          {{else}}
+            <a href="https://new-help.brandtrack.ai/hc/en-us/articles/38750270507287" class="bt-tag">
+              How do I sign up for Brandtrack?
+            </a>
+            <a href="https://new-help.brandtrack.ai/hc/en-us/articles/38755063963543" class="bt-tag">
+              How do I choose a playlist for my business type?
+            </a>
+            <a href="https://new-help.brandtrack.ai/hc/en-us/articles/38756550296983" class="bt-tag">
+              What is a schedule?
+            </a>
+          {{/is}}
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT -->
+    <main class="bt-home-right" id="main-content">
+      <section class="section knowledge-base">
+        <h2 class="visibility-hidden">{{ t 'categories' }}</h2>
+
+        <section class="categories blocks">
+          <ul class="blocks-list">
+            {{#each categories}}
+              {{#if ../has_multiple_categories}}
+                <!-- ✅ MOD: add data-cat-id + icon slot -->
+                <li class="blocks-item" data-cat-id="{{id}}">
+                  <a href='{{url}}' class="blocks-item-link">
+                    <span class="bt-cat-icon" aria-hidden="true"></span>
+                    <span class="blocks-item-title">{{name}}</span>
+                    {{!-- removed description for grid style --}}
+                  </a>
+                </li>
+              {{else}}
+                {{#each sections}}
+                  <!-- ✅ MOD: add data-cat-id + icon slot -->
+                  <li class="blocks-item" data-cat-id="{{id}}">
+                    <a href='{{url}}' class="blocks-item-link">
+                      <span class="bt-cat-icon" aria-hidden="true"></span>
+                      <span class="blocks-item-title">{{name}}</span>
+                      {{!-- removed description for grid style --}}
+                    </a>
+                  </li>
+                {{/each}}
+              {{/if}}
+            {{/each}}
+          </ul>
+
+          {{pagination}}
+        </section>
+      </section>
+
+    
+
+      <section class="section home-section activity">
+        {{#if settings.show_recent_activity}}
+          {{recent_activity}}
+        {{/if}}
+      </section>
+    </main>
+
+  </div>
+</div>
