@@ -8,74 +8,38 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
+    html, body {
+      height: 100%;
       font-family: 'Space Grotesk', sans-serif;
       background: #000;
       color: #fff;
-      min-height: 100vh;
     }
 
-    /* ── HEADER ── */
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 18px 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .header-logo {
-      height: 32px;
-    }
-    .header-nav {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-    }
-    .header-nav a {
-      color: rgba(255,255,255,0.65);
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .header-nav a:hover { color: #fff; }
-    .btn-submit {
-      background: #7455FD;
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 9px 20px;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-submit:hover { background: #5e3fe0; }
-
-    /* ── MAIN LAYOUT ── */
+    /* ── MAIN LAYOUT — full viewport ── */
     .main {
       display: grid;
-      grid-template-columns: 420px 1fr;
-      gap: 0;
-      min-height: calc(100vh - 69px);
+      grid-template-columns: 400px 1fr;
+      height: 100vh;
     }
 
     /* ── LEFT PANEL ── */
     .left-panel {
       background: linear-gradient(160deg, #2d1a6b 0%, #1a0e3e 50%, #000 100%);
-      padding: 64px 48px;
+      padding: 56px 44px;
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 28px;
       border-right: 1px solid rgba(255,255,255,0.06);
+      overflow-y: auto;
     }
+
     .left-panel h1 {
-      font-size: 48px;
+      font-size: 44px;
       font-weight: 800;
       line-height: 1.1;
       color: #fff;
     }
+
     .search-box {
       display: flex;
       align-items: center;
@@ -102,11 +66,11 @@
     .search-box input::placeholder { color: rgba(255,255,255,0.35); }
 
     .popular-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255,255,255,0.4);
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
     }
     .popular-tags {
       display: flex;
@@ -117,7 +81,7 @@
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
       border-radius: 10px;
-      padding: 12px 16px;
+      padding: 13px 16px;
       font-size: 14px;
       color: rgba(255,255,255,0.8);
       cursor: pointer;
@@ -133,56 +97,49 @@
 
     /* ── RIGHT PANEL ── */
     .right-panel {
-      padding: 48px 48px;
+      padding: 40px 44px;
       background: #000;
-    }
-    .right-panel h2 {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.35);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 28px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
     }
 
     .categories-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-rows: repeat(3, 1fr);
+      gap: 14px;
+      flex: 1;
     }
 
     .category-card {
       background: #0a0a0a;
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 20px;
-      padding: 32px 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 16px;
+      gap: 14px;
       cursor: pointer;
       text-decoration: none;
       color: #fff;
       transition: all 0.25s ease;
-      min-height: 160px;
     }
     .category-card:hover {
       background: #0f0f0f;
       border-color: rgba(116,85,253,0.5);
       transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(116,85,253,0.15);
+      box-shadow: 0 12px 40px rgba(116,85,253,0.12);
     }
     .category-card svg {
-      width: 40px;
-      height: 40px;
-      color: rgba(255,255,255,0.75);
+      width: 38px;
+      height: 38px;
+      color: rgba(255,255,255,0.7);
       transition: color 0.2s;
     }
-    .category-card:hover svg {
-      color: #7455FD;
-    }
+    .category-card:hover svg { color: #7455FD; }
     .category-card span {
       font-size: 15px;
       font-weight: 600;
@@ -190,54 +147,21 @@
       color: #fff;
     }
 
-    /* ── FOOTER ── */
-    .footer {
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 24px 48px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      background: #000;
-    }
-    .footer span {
-      font-size: 13px;
-      color: rgba(255,255,255,0.3);
-    }
-    .footer-logo { height: 18px; opacity: 0.4; }
-
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
-      .main { grid-template-columns: 1fr; }
+      .main { grid-template-columns: 1fr; height: auto; }
       .left-panel { padding: 40px 24px; }
       .right-panel { padding: 32px 24px; }
-      .categories-grid { grid-template-columns: repeat(2, 1fr); }
-      .header { padding: 16px 24px; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
     }
     @media (max-width: 480px) {
       .categories-grid { grid-template-columns: 1fr; }
-      .left-panel h1 { font-size: 36px; }
+      .left-panel h1 { font-size: 34px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header class="header">
-    <svg width="140" height="32" viewBox="0 0 140 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Logo placeholder — reemplazar con logo real de Brandtrack -->
-      <rect width="32" height="32" rx="8" fill="#7455FD"/>
-      <path d="M8 10h16M8 16h12M8 22h14" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-      <text x="40" y="22" font-family="Space Grotesk" font-weight="700" font-size="17" fill="white">Brandtrack</text>
-    </svg>
-    <nav class="header-nav">
-      <a href="#">Comunidad</a>
-      <button class="btn-submit">Enviar solicitud</button>
-      <a href="#">Iniciar sesión</a>
-    </nav>
-  </header>
-
-  <!-- MAIN -->
   <div class="main">
 
     <!-- LEFT -->
@@ -252,9 +176,8 @@
         <input type="text" placeholder="Buscar..." autocomplete="on"/>
       </div>
 
-      <div>
-        <p class="popular-label">Temas frecuentes</p>
-      </div>
+      <p class="popular-label">Temas frecuentes</p>
+
       <div class="popular-tags">
         <a href="#" class="tag">¿Cómo registrarme en Brandtrack?</a>
         <a href="#" class="tag">¿Cómo elegir una playlist según el tipo de negocio?</a>
@@ -264,7 +187,6 @@
 
     <!-- RIGHT -->
     <main class="right-panel">
-      <h2>Categorías</h2>
       <div class="categories-grid">
 
         <a href="#" class="category-card">
@@ -332,15 +254,8 @@
 
       </div>
     </main>
-  </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <span>Powered by</span>
-    <svg width="90" height="18" viewBox="0 0 90 18" fill="none">
-      <text x="0" y="14" font-family="Space Grotesk" font-weight="700" font-size="13" fill="rgba(255,255,255,0.4)">Brandtrack</text>
-    </svg>
-  </footer>
+  </div>
 
 </body>
 </html>
